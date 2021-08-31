@@ -145,7 +145,13 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           new TriangleSm(0, 0, 45 + rot, bg)
         break
         case 'md':
-          new TriangleMd(0, 0, 45 + rot, bg)
+          r = random()
+          if (r < .5) {
+            new TriangleMd(0, 0, 45 + rot, bg)
+          } else {
+            new TriangleSm(.7, .71, 270 + rot, bg)
+            new TriangleSm(.7, .71, 180 + rot, bg)
+          }
         break
         case 'lg':
           new TriangleLg(0, 0, 45 + rot, bg)
