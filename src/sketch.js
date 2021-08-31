@@ -58,7 +58,7 @@ function refresh () {
   translate(params.baseScale * 4, params.baseScale * 5)
 
   for (let x = 0; x < ~~(width / (params.baseScale * 6)); x++) {
-    for (let y = 0; y < 6; y++) {
+    for (let y = 0; y < ~~(height / (params.baseScale * 6)); y++) {
       push()
       translate(x * params.baseScale * 8, y * params.baseScale * 8)
       new Cat(1, c)
