@@ -18,6 +18,7 @@
 // VSCode Shades of purple editor colors
 bgColor = [0, 25, 60]
 colors = ['#000000', '#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
+let r
 
 /**
  * Sketch entry point
@@ -80,7 +81,16 @@ class Cat {
         new TriSm(0, 0, 135, bg)
         new TriSm(0, 0, -45, bg)
         // Face
-        new SquareSm(0, sqrt(2) / 2, -45, bg)
+        r = random()
+        if (r < 1 / 3) {
+          new SquareSm(0, sqrt(2) / 2, -45, bg)
+        } else if (r < 2 /3) {
+          new TriSm(0, 0, 45, bg)
+          new TriSm(0, sqrt(2), 225, bg)
+        } else {
+          new TriSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
+          new TriSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
+        }
         // Neck
         new TriMd(0, sqrt(2), 45, bg)
         // Body
