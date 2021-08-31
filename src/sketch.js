@@ -25,7 +25,7 @@ colors = ['#000000', '#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2E
 function setup() {
   // Param args
   params = Object.assign({
-    baseScale: 50
+    baseScale: 24
   }, getURLParams())
   
   angleMode(DEGREES)
@@ -54,7 +54,16 @@ function getColor (arr) {
 function refresh () {
   c = getColor()
   background(c)
-  new Cat(1, c)
+  translate(params.baseScale * 4, params.baseScale * 5)
+
+  for (let x = 0; x < ~~(width / (params.baseScale * 6)); x++) {
+    for (let y = 0; y < 6; y++) {
+      push()
+      translate(x * params.baseScale * 8, y * params.baseScale * 8)
+      new Cat(1, c)
+      pop()
+    }
+  }
 }
 
 
@@ -93,7 +102,7 @@ class TriSm {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     triangle(0, params.baseScale, 0, 0, params.baseScale, 0)
@@ -106,7 +115,7 @@ class TriMd {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     triangle(0, params.baseScale * sqrt(2), 0, 0, params.baseScale * sqrt(2), 0)
@@ -119,7 +128,7 @@ class TriLg {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     triangle(0, params.baseScale * 2, 0, 0, params.baseScale * 2, 0)
@@ -135,7 +144,7 @@ class SquareSm {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     rect(0, 0, params.baseScale, params.baseScale)
@@ -148,7 +157,7 @@ class SquareMd {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     rect(0, 0, params.baseScale * 2, params.baseScale * 2)
@@ -168,7 +177,7 @@ class Para {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     quad(
@@ -185,7 +194,7 @@ class ParaFlipped {
     let newColors = colors.filter(c => c !== bg)
     
     push()
-    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
     quad(
