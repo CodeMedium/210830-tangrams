@@ -86,8 +86,8 @@ class TangramBuilding {
         // Facade
         addTangram('triangle', 'md', bg, -1, 1.5, -45)
         addTangram('triangle', 'lg', bg, .4, 1.5, 0)
-        addTangram('triangle', 'sm', bg, 1.1, 2.21, 180)
-        addTangram('triangle', 'sm', bg, 1.1, 2.21, -90)
+
+        addTangram('triangle', 'md', bg, 1.815, 1.5, 45)
       break
     }
   }
@@ -154,6 +154,7 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           }
         break
         case 'lg':
+          // r = random()
           new TriangleLg(0, 0, 45 + rot, bg)
         break
       }
