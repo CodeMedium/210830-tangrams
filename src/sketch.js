@@ -77,9 +77,11 @@ class Cat {
       case 1:
         rectMode(CENTER)
         translate(0, 3 * -params.baseScale)
+        
         // Ears
         new TriSm(0, 0, 135, bg)
         new TriSm(0, 0, -45, bg)
+        
         // Face
         r = random()
         if (r < 1 / 3) {
@@ -91,13 +93,33 @@ class Cat {
           new TriSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
           new TriSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
         }
+        
         // Neck
         new TriMd(0, sqrt(2), 45, bg)
+
         // Body
-        new TriLg(-1, 2.42, 0, bg)
-        new TriLg(1, 4.43, 180, bg)
+        r = random()
+        if (r < 1 / 3) {
+          new TriLg(-1, 2.42, 0, bg)
+          new TriLg(1, 4.43, 180, bg)
+        } else if (r < 2 / 3) {
+          new TriLg(1, 2.42, 90, bg)
+          new TriLg(-1, 4.43, -90, bg)
+        } else {
+          new SquareMd(0, 3.42, 0, bg)          
+        }
+
         // Tail
-        new ParaFlipped(0, 4.43, 0, bg)
+        r = random()
+        if (r < .25) {
+          new ParaFlipped(0, 4.43, 0, bg)
+        } else if (r < .5) {
+          new Para(0, 4.43, 0, bg)
+        } else if (r < .75) {
+          new Para(2, 2.43, 90, bg)
+        } else {
+          new ParaFlipped(-2, 2.43, -90, bg)
+        }
       break
     }
   }
