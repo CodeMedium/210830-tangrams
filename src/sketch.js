@@ -1,5 +1,5 @@
 /**
- * 210830 Tangram Cats
+ * 210830 Tangrams
  * Started: 8/30/21
  * By: Oz Ramos
  * Twitter: https://twitter.com/thecodemedium
@@ -78,7 +78,7 @@ class Building {
       case 1:
         translate(0, 3 * -params.baseScale)
         // Chimney
-        new SquareSm(0, 0, 0, bg)
+        addTangram('square', 'sm', bg)
         
         // Roof
         new ParaFlipped(.5, .5, 0, bg)
@@ -131,7 +131,7 @@ class Cat {
           new TriangleLg(1, 2.42, 90, bg)
           new TriangleLg(-1, 4.43, -90, bg)
         } else {
-          new SquareMd(0, 3.42, 0, bg)          
+          new SquareMd(0, 3.42, 0, bg)
         }
 
         // Tail
@@ -150,6 +150,45 @@ class Cat {
   }
 }
 
+/**
+ * Tangram
+ */
+ function addTangram (shape, size, bg) {
+  switch (shape) {
+    /**
+     * Squares
+     */
+    case 'square':
+      switch (size) {
+        case 'sm':
+          r = random()
+          if (r < 1 / 3) {
+            new TriangleSm(-.5, -.5, 0, bg)
+            new TriangleSm(.5, .5, 180, bg)
+          } else if (r < 2 / 3) {
+            new TriangleSm(.5, -.5, 90, bg)
+            new TriangleSm(-.5, .5, -90, bg)
+          } else {
+            new SquareSm(0, 0, 0, bg)
+          }
+        break
+
+        case 'md':
+          r = random()
+          if (r < 1 / 3) {
+            new TriangleLg(-1, 2.42, 0, bg)
+            new TriangleLg(1, 4.43, 180, bg)
+          } else if (r < 2 / 3) {
+            new TriangleLg(1, 2.42, 90, bg)
+            new TriangleLg(-1, 4.43, -90, bg)
+          } else {
+            new SquareMd(0, 3.42, 0, bg)
+          }
+        break
+      }
+    break
+  }
+}
 
 /**
  * Triangles
@@ -263,8 +302,6 @@ class ParaFlipped {
     pop()
   }
 }
-
-
 
 
 
