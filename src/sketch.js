@@ -30,6 +30,7 @@ function setup() {
   }, getURLParams())
   
   angleMode(DEGREES)
+  rectMode(CENTER)
 
 	createCanvas(windowWidth, windowHeight)
   refresh()
@@ -53,20 +54,45 @@ function getColor (arr) {
  * Refresh the scene
  */
 function refresh () {
-  c = getColor()
-  background(c)
+  bg = getColor()
+  background(bg)
   translate(params.baseScale * 4, params.baseScale * 5)
 
   for (let x = 0; x < ~~(width / (params.baseScale * 6)); x++) {
     for (let y = 0; y < ~~(height / (params.baseScale * 6)); y++) {
       push()
       translate(x * params.baseScale * 8, y * params.baseScale * 8)
-      new Cat(1, c)
+      // new Cat(1, bg)
+      new Building(1, bg)
       pop()
     }
   }
 }
 
+/**
+ * Create a building
+ */
+class Building {
+  constructor (type, bg) {
+    switch (type) {
+      case 1:
+        translate(0, 3 * -params.baseScale)
+        // Chimney
+        new SquareSm(0, 0, 0, bg)
+        
+        // Roof
+        new ParaFlipped(.5, .5, 0, bg)
+        new TriangleLg(.91, .085, 45, bg)
+
+        // Facade
+        new TriangleMd(-1, 1.5, 0, bg)
+        new TriangleLg(.4, 1.5, 45, bg)
+        new TriangleSm(1.1, 2.21, 225, bg)
+        new TriangleSm(1.1, 2.21, -45, bg)
+      break
+    }
+  }
+}
 
 /**
  * Create a cat
@@ -75,36 +101,35 @@ class Cat {
   constructor (type, bg) {
     switch (type) {
       case 1:
-        rectMode(CENTER)
         translate(0, 3 * -params.baseScale)
         
         // Ears
-        new TriSm(0, 0, 135, bg)
-        new TriSm(0, 0, -45, bg)
+        new TriangleSm(0, 0, 135, bg)
+        new TriangleSm(0, 0, -45, bg)
         
         // Face
         r = random()
         if (r < 1 / 3) {
           new SquareSm(0, sqrt(2) / 2, -45, bg)
         } else if (r < 2 /3) {
-          new TriSm(0, 0, 45, bg)
-          new TriSm(0, sqrt(2), 225, bg)
+          new TriangleSm(0, 0, 45, bg)
+          new TriangleSm(0, sqrt(2), 225, bg)
         } else {
-          new TriSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
-          new TriSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
+          new TriangleSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
+          new TriangleSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
         }
         
         // Neck
-        new TriMd(0, sqrt(2), 45, bg)
+        new TriangleMd(0, sqrt(2), 45, bg)
 
         // Body
         r = random()
         if (r < 1 / 3) {
-          new TriLg(-1, 2.42, 0, bg)
-          new TriLg(1, 4.43, 180, bg)
+          new TriangleLg(-1, 2.42, 0, bg)
+          new TriangleLg(1, 4.43, 180, bg)
         } else if (r < 2 / 3) {
-          new TriLg(1, 2.42, 90, bg)
-          new TriLg(-1, 4.43, -90, bg)
+          new TriangleLg(1, 2.42, 90, bg)
+          new TriangleLg(-1, 4.43, -90, bg)
         } else {
           new SquareMd(0, 3.42, 0, bg)          
         }
@@ -129,7 +154,7 @@ class Cat {
 /**
  * Triangles
  */
-class TriSm {
+class TriangleSm {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
     
@@ -142,7 +167,7 @@ class TriSm {
   }
 }
 
-class TriMd {
+class TriangleMd {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
     
@@ -155,7 +180,7 @@ class TriMd {
   }
 }
 
-class TriLg {
+class TriangleLg {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
     
