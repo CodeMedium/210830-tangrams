@@ -63,7 +63,7 @@ function refresh () {
       push()
       translate(x * params.baseScale * 8, y * params.baseScale * 8)
       // new Cat(1, bg)
-      new Building(1, bg)
+      new TangramBuilding(1, bg)
       pop()
     }
   }
@@ -72,7 +72,7 @@ function refresh () {
 /**
  * Create a building
  */
-class Building {
+class TangramBuilding {
   constructor (type, bg) {
     switch (type) {
       case 1:
@@ -81,70 +81,15 @@ class Building {
         addTangram('square', 'sm', bg)
         
         // Roof
-        new ParaFlipped(.5, .5, 0, bg)
+        addTangram('quad', 'sm', bg, 0, 1)
+        addTangram('triangle', 'md')
         new TriangleLg(.91, .085, 45, bg)
 
         // Facade
-        new TriangleMd(-1, 1.5, 0, bg)
-        new TriangleLg(.4, 1.5, 45, bg)
-        new TriangleSm(1.1, 2.21, 225, bg)
-        new TriangleSm(1.1, 2.21, -45, bg)
-      break
-    }
-  }
-}
-
-/**
- * Create a cat
- */
-class Cat {
-  constructor (type, bg) {
-    switch (type) {
-      case 1:
-        translate(0, 3 * -params.baseScale)
-        
-        // Ears
-        new TriangleSm(0, 0, 135, bg)
-        new TriangleSm(0, 0, -45, bg)
-        
-        // Face
-        r = random()
-        if (r < 1 / 3) {
-          new SquareSm(0, sqrt(2) / 2, -45, bg)
-        } else if (r < 2 /3) {
-          new TriangleSm(0, 0, 45, bg)
-          new TriangleSm(0, sqrt(2), 225, bg)
-        } else {
-          new TriangleSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
-          new TriangleSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
-        }
-        
-        // Neck
-        new TriangleMd(0, sqrt(2), 45, bg)
-
-        // Body
-        r = random()
-        if (r < 1 / 3) {
-          new TriangleLg(-1, 2.42, 0, bg)
-          new TriangleLg(1, 4.43, 180, bg)
-        } else if (r < 2 / 3) {
-          new TriangleLg(1, 2.42, 90, bg)
-          new TriangleLg(-1, 4.43, -90, bg)
-        } else {
-          new SquareMd(0, 3.42, 0, bg)
-        }
-
-        // Tail
-        r = random()
-        if (r < .25) {
-          new ParaFlipped(0, 4.43, 0, bg)
-        } else if (r < .5) {
-          new Para(0, 4.43, 0, bg)
-        } else if (r < .75) {
-          new Para(2, 2.43, 90, bg)
-        } else {
-          new ParaFlipped(-2, 2.43, -90, bg)
-        }
+        // new TriangleMd(-1, 1.5, 0, bg)
+        // new TriangleLg(.4, 1.5, 45, bg)
+        // new TriangleSm(1.1, 2.21, 225, bg)
+        // new TriangleSm(1.1, 2.21, -45, bg)
       break
     }
   }
@@ -153,7 +98,12 @@ class Cat {
 /**
  * Tangram
  */
- function addTangram (shape, size, bg) {
+function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
+  push()
+  if (xShift || yShift) {
+    translate(xShift * params.baseScale, yShift * params.baseScale)
+  }
+  
   switch (shape) {
     /**
      * Squares
@@ -187,7 +137,26 @@ class Cat {
         break
       }
     break
+
+    /**
+     * Quad
+     */
+    case 'quad':
+      switch ('sm') {
+        case 'sm':
+          r = random()
+          if (r < .5) {
+            new TriangleSm(-.5, -.5, 0, bg)
+            new TriangleSm(-.5, .5, 180, bg)
+          } else {
+            new QuadFlipped(.5, -.5, 0, bg)
+          }
+        break
+      }
+    break
   }
+
+  pop()
 }
 
 /**
@@ -285,7 +254,7 @@ class Para {
     pop()
   }
 }
-class ParaFlipped {
+class QuadFlipped {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
     
@@ -303,8 +272,61 @@ class ParaFlipped {
   }
 }
 
+/**
+ * Create a cat
+ */
+ class Cat {
+  constructor (type, bg) {
+    switch (type) {
+      case 1:
+        translate(0, 3 * -params.baseScale)
+        
+        // Ears
+        new TriangleSm(0, 0, 135, bg)
+        new TriangleSm(0, 0, -45, bg)
+        
+        // Face
+        r = random()
+        if (r < 1 / 3) {
+          new SquareSm(0, sqrt(2) / 2, -45, bg)
+        } else if (r < 2 /3) {
+          new TriangleSm(0, 0, 45, bg)
+          new TriangleSm(0, sqrt(2), 225, bg)
+        } else {
+          new TriangleSm(sqrt(2) / -2, sqrt(2) / 2, -45, bg)
+          new TriangleSm(sqrt(2) / 2, sqrt(2) / 2, 135, bg)
+        }
+        
+        // Neck
+        new TriangleMd(0, sqrt(2), 45, bg)
 
+        // Body
+        r = random()
+        if (r < 1 / 3) {
+          new TriangleLg(-1, 2.42, 0, bg)
+          new TriangleLg(1, 4.43, 180, bg)
+        } else if (r < 2 / 3) {
+          new TriangleLg(1, 2.42, 90, bg)
+          new TriangleLg(-1, 4.43, -90, bg)
+        } else {
+          new SquareMd(0, 3.42, 0, bg)
+        }
 
+        // Tail
+        r = random()
+        if (r < .25) {
+          new QuadFlipped(0, 4.43, 0, bg)
+        } else if (r < .5) {
+          new Para(0, 4.43, 0, bg)
+        } else if (r < .75) {
+          new Para(2, 2.43, 90, bg)
+        } else {
+          new QuadFlipped(-2, 2.43, -90, bg)
+        }
+      break
+    }
+  }
+}
 
 
 /**
