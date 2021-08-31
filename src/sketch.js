@@ -56,7 +56,7 @@ function getColor (arr) {
 function refresh () {
   bg = getColor()
   background(bg)
-  translate(params.baseScale * 4, params.baseScale * 5)
+  translate(params.baseScale * 3, params.baseScale * 3)
 
   for (let x = 0; x < ~~(width / (params.baseScale * 6)); x++) {
     for (let y = 0; y < ~~(height / (params.baseScale * 6)); y++) {
@@ -76,19 +76,18 @@ class TangramBuilding {
   constructor (type, bg) {
     switch (type) {
       case 1:
-        translate(0, 3 * -params.baseScale)
         // Chimney
         addTangram('square', 'sm', bg)
         
         // Roof
         addTangram('quad', 'sm', bg, 0, 1)
-        addTangram('triangle', 'md', bg, .9, 0.085)
+        addTangram('triangle', 'lg', bg, .9, 0.085)
 
         // Facade
-        // new TriangleMd(-1, 1.5, 0, bg)
-        // new TriangleLg(.4, 1.5, 45, bg)
-        // new TriangleSm(1.1, 2.21, 225, bg)
-        // new TriangleSm(1.1, 2.21, -45, bg)
+        addTangram('triangle', 'md', bg, -1, 1.5, -45)
+        addTangram('triangle', 'lg', bg, .4, 1.5, 0)
+        addTangram('triangle', 'sm', bg, 1.1, 2.21, 180)
+        addTangram('triangle', 'sm', bg, 1.1, 2.21, -90)
       break
     }
   }
@@ -97,7 +96,7 @@ class TangramBuilding {
 /**
  * Tangram
  */
-function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
+function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
   push()
   if (xShift || yShift) {
     translate(xShift * params.baseScale, yShift * params.baseScale)
@@ -112,26 +111,26 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
         case 'sm':
           r = random()
           if (r < 1 / 3) {
-            new TriangleSm(-.5, -.5, 0, bg)
-            new TriangleSm(.5, .5, 180, bg)
+            new TriangleSm(-.5, -.5, 0 + rot, bg)
+            new TriangleSm(.5, .5, 180 + rot, bg)
           } else if (r < 2 / 3) {
-            new TriangleSm(.5, -.5, 90, bg)
-            new TriangleSm(-.5, .5, -90, bg)
+            new TriangleSm(.5, -.5, 90 + rot, bg)
+            new TriangleSm(-.5, .5, -90 + rot, bg)
           } else {
-            new SquareSm(0, 0, 0, bg)
+            new SquareSm(0, 0, 0 + rot, bg)
           }
         break
 
         case 'md':
           r = random()
           if (r < 1 / 3) {
-            new TriangleLg(-1, 2.42, 0, bg)
-            new TriangleLg(1, 4.43, 180, bg)
+            new TriangleLg(-1, 2.42, 0 + rot, bg)
+            new TriangleLg(1, 4.43, 180 + rot, bg)
           } else if (r < 2 / 3) {
-            new TriangleLg(1, 2.42, 90, bg)
-            new TriangleLg(-1, 4.43, -90, bg)
+            new TriangleLg(1, 2.42, 90 + rot, bg)
+            new TriangleLg(-1, 4.43, -90 + rot, bg)
           } else {
-            new SquareMd(0, 3.42, 0, bg)
+            new SquareMd(0, 3.42, 0 + rot, bg)
           }
         break
       }
@@ -142,8 +141,14 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
      */
     case 'triangle':
       switch (size) {
+        case 'sm':
+          new TriangleSm(0, 0, 45 + rot, bg)
+        break
         case 'md':
-          new TriangleLg(0, 0, 45, bg)
+          new TriangleMd(0, 0, 45 + rot, bg)
+        break
+        case 'lg':
+          new TriangleLg(0, 0, 45 + rot, bg)
         break
       }
     break
@@ -156,10 +161,10 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
         case 'sm':
           r = random()
           if (r < .5) {
-            new TriangleSm(-.5, -.5, 0, bg)
-            new TriangleSm(-.5, .5, 180, bg)
+            new TriangleSm(-.5, -.5, 0 + rot, bg)
+            new TriangleSm(-.5, .5, 180 + rot, bg)
           } else {
-            new QuadFlipped(.5, -.5, 0, bg)
+            new QuadFlipped(.5, -.5, 0 + rot, bg)
           }
         break
       }
