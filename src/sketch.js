@@ -26,7 +26,7 @@ let r
 function setup() {
   // Param args
   params = Object.assign({
-    baseScale: 24
+    baseScale: 15
   }, getURLParams())
   
   angleMode(DEGREES)
