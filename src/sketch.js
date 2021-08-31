@@ -65,11 +65,12 @@ class Cat {
   constructor (type, bg) {
     switch (type) {
       case 1:
-        rectMode(CORNER)
-        translate(0, 2 * -params.baseScale)
+        rectMode(CENTER)
+        translate(0, 3 * -params.baseScale)
         new TriSm(0, 0, 135, bg)
         new TriSm(0, 0, -45, bg)
-        new SquareSm(0, 0, 45, bg)
+        new SquareSm(0, sqrt(2) / 2, -45, bg)
+        new TriMd(0, sqrt(2), 45, bg)
       break
     }
   }
@@ -77,7 +78,7 @@ class Cat {
 
 
 /**
- * Smallest Triangle
+ * Triangles
  */
 class TriSm {
   constructor (x, y, rot, bg) {
@@ -91,15 +92,26 @@ class TriSm {
     pop()
   }
 }
+
 class TriMd {
-  constructor () {}
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    triangle(0, params.baseScale * sqrt(2), 0, 0, params.baseScale * sqrt(2), 0)
+    pop()
+  }
 }
+
 class TriLg {
   constructor () {}
 }
 
 /**
- * Smallest square
+ * Squares
  */
 class SquareSm {
   constructor (x, y, rot, bg) {
@@ -114,7 +126,16 @@ class SquareSm {
   }
 }
 class SquareMd {
-  constructor () {}
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    rect(0, 1, params.baseScale * 2, params.baseScale * 2)
+    pop()
+  }
 }
 class SquareLg {
   constructor () {}
