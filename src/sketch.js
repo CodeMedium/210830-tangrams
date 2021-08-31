@@ -82,8 +82,7 @@ class TangramBuilding {
         
         // Roof
         addTangram('quad', 'sm', bg, 0, 1)
-        addTangram('triangle', 'md')
-        new TriangleLg(.91, .085, 45, bg)
+        addTangram('triangle', 'md', bg, .9, 0.085)
 
         // Facade
         // new TriangleMd(-1, 1.5, 0, bg)
@@ -139,10 +138,21 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0) {
     break
 
     /**
+     * Triangles
+     */
+    case 'triangle':
+      switch (size) {
+        case 'md':
+          new TriangleLg(0, 0, 45, bg)
+        break
+      }
+    break
+
+    /**
      * Quad
      */
     case 'quad':
-      switch ('sm') {
+      switch (size) {
         case 'sm':
           r = random()
           if (r < .5) {
