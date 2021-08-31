@@ -1,5 +1,5 @@
-# p5-starter
-A minimal p5.js starter kit with the following features:
+# Tangram Cats
+Generates a bunch of Tangrams in the shape of cats
 
 ## CCapture to mp4 with spacebar
 
