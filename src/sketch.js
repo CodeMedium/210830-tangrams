@@ -1,7 +1,7 @@
 /**
- * Title
- * Started: 8/22/21
- * By: Art See Clarke
+ * 210830 Tangram Cats
+ * Started: 8/30/21
+ * By: Oz Ramos
  * Twitter: https://twitter.com/thecodemedium
  * GitHub: https://github.com/codemedium
  * Personal website: https://codemedium.com
@@ -9,7 +9,7 @@
  * 		 "Any sufficiently advanced technology is indistinguishable from magic"
  * 		 - Arthur C. Clarke
  *
- * Description: 
+ * Description: A collectiong of generative tangram cats
  */
 
 /**
@@ -17,16 +17,21 @@
  */
 // VSCode Shades of purple editor colors
 bgColor = [0, 25, 60]
-colors = ['#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
+colors = ['#000000', '#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
 
 /**
  * Sketch entry point
  */
 function setup() {
   // Param args
-  params = Object.assign({}, getURLParams())
+  params = Object.assign({
+    baseScale: 50
+  }, getURLParams())
+  
+  angleMode(DEGREES)
 
 	createCanvas(windowWidth, windowHeight)
+  refresh()
 }
 
 /**
@@ -38,17 +43,85 @@ function draw() {
 /**
  * Returns a color in colors
  */
-function getColor (transparent = '') {
-  return colors[Math.floor(random(colors.length))] + transparent
+function getColor (arr) {
+  if (!arr) arr = colors
+  return arr[Math.floor(random(arr.length))]
+}
+
+/**
+ * Refresh the scene
+ */
+function refresh () {
+  c = getColor()
+  background(c)
+  new Cat(1, c)
 }
 
 
+/**
+ * Create a cat
+ */
+class Cat {
+  constructor (type, bg) {
+    switch (type) {
+      case 1:
+        rectMode(CORNER)
+        translate(0, 2 * -params.baseScale)
+        new TriSm(0, 0, 135, bg)
+        new TriSm(0, 0, -45, bg)
+        new SquareSm(0, 0, 45, bg)
+      break
+    }
+  }
+}
 
 
+/**
+ * Smallest Triangle
+ */
+class TriSm {
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    triangle(0, params.baseScale, 0, 0, params.baseScale, 0)
+    pop()
+  }
+}
+class TriMd {
+  constructor () {}
+}
+class TriLg {
+  constructor () {}
+}
 
-
-
-
+/**
+ * Smallest square
+ */
+class SquareSm {
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    rect(0, 1, params.baseScale, params.baseScale)
+    pop()
+  }
+}
+class SquareMd {
+  constructor () {}
+}
+class SquareLg {
+  constructor () {}
+}
+class Para {
+  constructor () {}
+}
 
 
 
@@ -71,7 +144,11 @@ function keyPressed () {
  * 
  * @see https://github.com/CodeMedium/subdivided-starships
  */
+function mouseClicked () {
+  refresh()
+}
 const keypressFn = [function () {
+  refresh()
   switch (keyCode) {
     // Space
     case 32:
