@@ -67,10 +67,18 @@ class Cat {
       case 1:
         rectMode(CENTER)
         translate(0, 3 * -params.baseScale)
+        // Ears
         new TriSm(0, 0, 135, bg)
         new TriSm(0, 0, -45, bg)
+        // Face
         new SquareSm(0, sqrt(2) / 2, -45, bg)
+        // Neck
         new TriMd(0, sqrt(2), 45, bg)
+        // Body
+        new TriLg(-1, 2.42, 0, bg)
+        new TriLg(1, 4.43, 180, bg)
+        // Tail
+        new ParaFlipped(0, 4.43, 0, bg)
       break
     }
   }
@@ -107,7 +115,16 @@ class TriMd {
 }
 
 class TriLg {
-  constructor () {}
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    triangle(0, params.baseScale * 2, 0, 0, params.baseScale * 2, 0)
+    pop()
+  }
 }
 
 /**
@@ -121,10 +138,11 @@ class SquareSm {
     translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    rect(0, 1, params.baseScale, params.baseScale)
+    rect(0, 0, params.baseScale, params.baseScale)
     pop()
   }
 }
+
 class SquareMd {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
@@ -133,15 +151,51 @@ class SquareMd {
     translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    rect(0, 1, params.baseScale * 2, params.baseScale * 2)
+    rect(0, 0, params.baseScale * 2, params.baseScale * 2)
     pop()
   }
 }
+
 class SquareLg {
   constructor () {}
 }
+
+/**
+ * Parallelagrams
+ */
 class Para {
-  constructor () {}
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    quad(
+      0, 0,
+      params.baseScale, 0,
+      params.baseScale * 2, params.baseScale,
+      params.baseScale, params.baseScale
+    )
+    pop()
+  }
+}
+class ParaFlipped {
+  constructor (x, y, rot, bg) {
+    let newColors = colors.filter(c => c !== bg)
+    
+    push()
+    translate(width / 2 + x * params.baseScale, height / 2 + y * params.baseScale)
+    rotate(rot)
+    fill(getColor(newColors))
+    quad(
+      0, 0,
+      -params.baseScale, 0,
+      -params.baseScale * 2, params.baseScale,
+      -params.baseScale, params.baseScale
+    )
+    pop()
+  }
 }
 
 
