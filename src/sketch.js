@@ -93,14 +93,9 @@ class TangramBuilding {
         addTangram('triangle', 'lg', bg, .9, 1.03)
 
         // Facade
-        // addTangram('triangle', 'md', bg, -1, 1.5, -45)
-        // addTangram('triangle', 'lg', bg, .4, 1.5, 0)
-
-        // addTangram('triangle', 'md', bg, 1.815, 1.5, 45)
-        // addTangram('triangle', 'md', bg, 0, 0, 45)
-        // addTangram('triangle', 'md', bg, 0, 0, 45)
-        // addTangram('triangle', 'md', bg, 0, 0, 45)
-        // addTangram('triangle', 'md', bg, 0, 0, 45)
+        addTangram('triangle', 'md', bg, -.5, 1.97, -45)
+        addTangram('triangle', 'lg', bg, .445, 2.44, 0)
+        addTangram('triangle', 'md', bg, 1.4, 1.975, 45)
       break
     }
   }
