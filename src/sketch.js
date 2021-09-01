@@ -40,15 +40,15 @@ function setup() {
  * Main draw loop
  */
 function draw() {
-  push()
-  translate(width / 2, height / 2)
-  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('quad', 'sm', bg, 0, 0, frameCount/6)
+  // push()
+  // translate(width / 2, height / 2)
+  // // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // addTangram('quadFlipped', 'sm', bg, 0, 0, frameCount/6)
 
-  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  pop()
+  // // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // pop()
 }
 
 /**
@@ -89,8 +89,8 @@ class TangramBuilding {
         addTangram('square', 'sm', bg)
         
         // // Roof
-        addTangram('quad', 'sm', bg, 0, 1)
-        // addTangram('triangle', 'lg', bg, .9, 0.085)
+        addTangram('quadFlipped', 'sm', bg, -.5, 1)
+        addTangram('triangle', 'lg', bg, .9, 1.03)
 
         // // Facade
         // addTangram('triangle', 'md', bg, -1, 1.5, -45)
@@ -186,6 +186,20 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
             new TriangleSm(0, 0, 270 + rot, bg, .17, -.33)
           } else {
             new Quad(0, 0, 0 + rot, bg)
+          }
+        break
+      }
+    break
+
+    case 'quadFlipped':
+      switch (size) {
+        case 'sm':
+          r = random()
+          if (r < .5) {
+            new TriangleSm(0, 0, 180 + rot, bg, -0.33, 0.17)
+            new TriangleSm(0, 0, 0 + rot, bg, -.33, .17)
+          } else {
+            new QuadFlipped(0, 0, 0 + rot, bg)
           }
         break
       }
@@ -304,11 +318,12 @@ class QuadFlipped {
     translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
+    
     quad(
-      0, 0,
-      -params.baseScale, 0,
-      -params.baseScale * 2, params.baseScale,
-      -params.baseScale, params.baseScale
+      0 + params.baseScale, 0 - params.baseScale / 2,
+      0, 0 - params.baseScale / 2,
+      -params.baseScale, params.baseScale - params.baseScale / 2,
+      0, params.baseScale - params.baseScale / 2
     )
     pop()
   }
