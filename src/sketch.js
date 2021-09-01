@@ -17,7 +17,7 @@
  */
 // VSCode Shades of purple editor colors
 bgColor = [0, 25, 60]
-colors = ['#000000', '#ffffff', ]//'#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
+colors = ['#000000', '#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
 let r
 
 /**
@@ -40,14 +40,12 @@ function setup() {
  * Main draw loop
  */
 function draw() {
-  // refresh()
-  // clear()
   push()
   translate(width / 2, height / 2)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('square', 'sm', bg, 0, 0, frameCount/6)
+  addTangram('quad', 'sm', bg, 0, 0, frameCount/6)
 
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   pop()
@@ -91,7 +89,7 @@ class TangramBuilding {
         addTangram('square', 'sm', bg)
         
         // // Roof
-        // addTangram('quad', 'sm', bg, 0, 1)
+        addTangram('quad', 'sm', bg, 0, 1)
         // addTangram('triangle', 'lg', bg, .9, 0.085)
 
         // // Facade
@@ -136,6 +134,7 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           }
         break
 
+        // @todo
         case 'md':
           r = random()
           if (r < 1 / 3) {
@@ -183,10 +182,10 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
         case 'sm':
           r = random()
           if (r < .5) {
-            new TriangleSm(-.5, -.5, 0 + rot, bg)
-            new TriangleSm(-.5, .5, 180 + rot, bg)
+            new TriangleSm(0, 0, 90 + rot, bg, .17, -.33)
+            new TriangleSm(0, 0, 270 + rot, bg, .17, -.33)
           } else {
-            new QuadFlipped(.5, -.5, 0 + rot, bg)
+            new Quad(0, 0, 0 + rot, bg)
           }
         break
       }
@@ -215,6 +214,7 @@ class TriangleSm {
   }
 }
 
+// @todo
 class TriangleMd {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
@@ -228,6 +228,7 @@ class TriangleMd {
   }
 }
 
+// @todo
 class TriangleLg {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
@@ -277,7 +278,7 @@ class SquareLg {
 /**
  * Parallelagrams
  */
-class Para {
+class Quad {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
     
@@ -286,14 +287,15 @@ class Para {
     rotate(rot)
     fill(getColor(newColors))
     quad(
-      0, 0,
-      params.baseScale, 0,
-      params.baseScale * 2, params.baseScale,
-      params.baseScale, params.baseScale
+      0 - params.baseScale, 0 - params.baseScale / 2,
+      0, 0 - params.baseScale / 2,
+      params.baseScale, params.baseScale - params.baseScale / 2,
+      0, params.baseScale - params.baseScale / 2
     )
     pop()
   }
 }
+// @todo
 class QuadFlipped {
   constructor (x, y, rot, bg) {
     let newColors = colors.filter(c => c !== bg)
@@ -357,9 +359,9 @@ class QuadFlipped {
         if (r < .25) {
           new QuadFlipped(0, 4.43, 0, bg)
         } else if (r < .5) {
-          new Para(0, 4.43, 0, bg)
+          new Quad(0, 4.43, 0, bg)
         } else if (r < .75) {
-          new Para(2, 2.43, 90, bg)
+          new Quad(2, 2.43, 90, bg)
         } else {
           new QuadFlipped(-2, 2.43, -90, bg)
         }
