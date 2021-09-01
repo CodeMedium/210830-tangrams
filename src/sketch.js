@@ -41,11 +41,13 @@ function setup() {
  */
 function draw() {
   // refresh()
+  push()
+  translate(width / 2, height / 2)
+  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-
+  pop()
 }
 
 /**
@@ -94,9 +96,9 @@ class TangramBuilding {
         // addTangram('triangle', 'lg', bg, .4, 1.5, 0)
 
         // addTangram('triangle', 'md', bg, 1.815, 1.5, 45)
-        addTangram('triangle', 'md', bg, 0, 0, 45)
-        addTangram('triangle', 'md', bg, 0, 0, 45)
-        addTangram('triangle', 'md', bg, 0, 0, 45)
+        // addTangram('triangle', 'md', bg, 0, 0, 45)
+        // addTangram('triangle', 'md', bg, 0, 0, 45)
+        // addTangram('triangle', 'md', bg, 0, 0, 45)
         addTangram('triangle', 'md', bg, 0, 0, 45)
       break
     }
@@ -159,8 +161,8 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           if (r < .5) {
             new TriangleMd(0, 0, 45 + rot, bg)
           } else {
-            new TriangleSm(.7, .71, 270 + rot, bg)
-            new TriangleSm(.7, .71, 180 + rot, bg)
+            new TriangleSm(0, 0, 270 + rot, bg, 0, -.33)
+            new TriangleSm(0, 0, 180 + rot, bg, -.33, 0)
           }
         break
         case 'lg':
@@ -195,14 +197,17 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
  * Triangles
  */
 class TriangleSm {
-  constructor (x, y, rot, bg) {
+  constructor (x, y, rot, bg, xShift = 0, yShift = 0) {
     let newColors = colors.filter(c => c !== bg)
     
     push()
     translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    triangle(0 - params.baseScale * .33, params.baseScale - params.baseScale * .33, 0 - params.baseScale * .33, 0 - params.baseScale * .33, params.baseScale - params.baseScale * .33, 0 - params.baseScale * .33)
+    triangle(
+      0 - params.baseScale * .33 - params.baseScale * xShift, params.baseScale - params.baseScale * .33 - params.baseScale * yShift,
+      0 - params.baseScale * .33 - params.baseScale * xShift, 0 - params.baseScale * .33 - params.baseScale * yShift,
+      params.baseScale - params.baseScale * .33 - params.baseScale * xShift, 0 - params.baseScale * .33 - params.baseScale * yShift)
     pop()
   }
 }
@@ -228,7 +233,7 @@ class TriangleLg {
     translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    triangle(0, params.baseScale * 2, 0, 0, params.baseScale * 2, 0)
+    triangle(params.baseScale * -.67, params.baseScale * 2 + params.baseScale * -.67, params.baseScale * -.67, params.baseScale * -.67, params.baseScale * 2 + params.baseScale * -.67, params.baseScale * -.67)
     pop()
   }
 }
