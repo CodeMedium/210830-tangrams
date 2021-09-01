@@ -41,11 +41,14 @@ function setup() {
  */
 function draw() {
   // refresh()
+  // clear()
   push()
   translate(width / 2, height / 2)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  addTangram('square', 'sm', bg, 0, 0, frameCount)
+
   addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   pop()
 }
@@ -85,7 +88,7 @@ class TangramBuilding {
     switch (type) {
       case 1:
         // Chimney
-        // addTangram('square', 'sm', bg)
+        addTangram('square', 'sm', bg)
         
         // // Roof
         // addTangram('quad', 'sm', bg, 0, 1)
@@ -99,7 +102,7 @@ class TangramBuilding {
         // addTangram('triangle', 'md', bg, 0, 0, 45)
         // addTangram('triangle', 'md', bg, 0, 0, 45)
         // addTangram('triangle', 'md', bg, 0, 0, 45)
-        addTangram('triangle', 'md', bg, 0, 0, 45)
+        // addTangram('triangle', 'md', bg, 0, 0, 45)
       break
     }
   }
@@ -123,13 +126,15 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
         case 'sm':
           r = random()
           if (r < 1 / 3) {
-            new TriangleSm(-.5, -.5, 0 + rot, bg)
-            new TriangleSm(.5, .5, 180 + rot, bg)
-          } else if (r < 2 / 3) {
-            new TriangleSm(.5, -.5, 90 + rot, bg)
-            new TriangleSm(-.5, .5, -90 + rot, bg)
+            new TriangleSm(0, 0, 270 + rot, bg, .15, .15)
+            new TriangleSm(0, 0, 90 + rot, bg, .19, .19)
+          //   new TriangleSm(-.5, -.5, 0 + rot, bg)
+          //   new TriangleSm(.5, .5, 180 + rot, bg)
+          // } else if (r < 2 / 3) {
+          //   new TriangleSm(.5, -.5, 90 + rot, bg)
+          //   new TriangleSm(-.5, .5, -90 + rot, bg)
           } else {
-            new SquareSm(0, 0, 0 + rot, bg)
+            // new SquareSm(0, 0, 0 + rot, bg)
           }
         break
 
