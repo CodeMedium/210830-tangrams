@@ -40,6 +40,12 @@ function setup() {
  * Main draw loop
  */
 function draw() {
+  // refresh()
+  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+
 }
 
 /**
@@ -77,17 +83,21 @@ class TangramBuilding {
     switch (type) {
       case 1:
         // Chimney
-        addTangram('square', 'sm', bg)
+        // addTangram('square', 'sm', bg)
         
-        // Roof
-        addTangram('quad', 'sm', bg, 0, 1)
-        addTangram('triangle', 'lg', bg, .9, 0.085)
+        // // Roof
+        // addTangram('quad', 'sm', bg, 0, 1)
+        // addTangram('triangle', 'lg', bg, .9, 0.085)
 
-        // Facade
-        addTangram('triangle', 'md', bg, -1, 1.5, -45)
-        addTangram('triangle', 'lg', bg, .4, 1.5, 0)
+        // // Facade
+        // addTangram('triangle', 'md', bg, -1, 1.5, -45)
+        // addTangram('triangle', 'lg', bg, .4, 1.5, 0)
 
-        addTangram('triangle', 'md', bg, 1.815, 1.5, 45)
+        // addTangram('triangle', 'md', bg, 1.815, 1.5, 45)
+        addTangram('triangle', 'md', bg, 0, 0, 45)
+        addTangram('triangle', 'md', bg, 0, 0, 45)
+        addTangram('triangle', 'md', bg, 0, 0, 45)
+        addTangram('triangle', 'md', bg, 0, 0, 45)
       break
     }
   }
@@ -192,7 +202,7 @@ class TriangleSm {
     translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    triangle(0, params.baseScale, 0, 0, params.baseScale, 0)
+    triangle(0 - params.baseScale * .33, params.baseScale - params.baseScale * .33, 0 - params.baseScale * .33, 0 - params.baseScale * .33, params.baseScale - params.baseScale * .33, 0 - params.baseScale * .33)
     pop()
   }
 }
@@ -205,7 +215,7 @@ class TriangleMd {
     translate(x * params.baseScale, y * params.baseScale)
     rotate(rot)
     fill(getColor(newColors))
-    triangle(0, params.baseScale * sqrt(2), 0, 0, params.baseScale * sqrt(2), 0)
+    triangle(params.baseScale * -.47, params.baseScale * sqrt(2) + params.baseScale * -.47, params.baseScale * -.47, params.baseScale * -.47, params.baseScale * sqrt(2) + params.baseScale * -.47, params.baseScale * -.47)
     pop()
   }
 }
