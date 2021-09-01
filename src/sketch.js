@@ -88,11 +88,11 @@ class TangramBuilding {
         // Chimney
         addTangram('square', 'sm', bg)
         
-        // // Roof
+        // Roof
         addTangram('quadFlipped', 'sm', bg, -.5, 1)
         addTangram('triangle', 'lg', bg, .9, 1.03)
 
-        // // Facade
+        // Facade
         // addTangram('triangle', 'md', bg, -1, 1.5, -45)
         // addTangram('triangle', 'lg', bg, .4, 1.5, 0)
 
@@ -168,8 +168,13 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           }
         break
         case 'lg':
-          // r = random()
-          new TriangleLg(0, 0, 45 + rot, bg)
+          r = random()
+          if (r < .5) {
+            new TriangleLg(0, 0, 45 + rot, bg)
+          } else {
+            addTangram('triangle', 'md', bg, -.47, 0, 135)
+            addTangram('triangle', 'md', bg, .47, 0, -135)
+          }
         break
       }
     break
