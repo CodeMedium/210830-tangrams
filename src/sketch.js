@@ -128,11 +128,9 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
           if (r < 1 / 3) {
             new TriangleSm(0, 0, 270 + rot, bg, .1695, .1695)
             new TriangleSm(0, 0, 90 + rot, bg, .1695, .1695)
-          // } else if (r < 2 / 3) {
-            // new TriangleSm(0, 0, 0 + rot, bg, .15, .15)
-            // new TriangleSm(0, 0, -180 + rot, bg, .19, .19)
-            // new TriangleSm(.5, -.5, 90 + rot, bg)
-            // new TriangleSm(-.5, .5, -90 + rot, bg)
+          } else if (r < 2 / 3) {
+            new TriangleSm(0, 0, 0 + rot, bg, .1695, .1695)
+            new TriangleSm(0, 0, -180 + rot, bg, .1695, .1695)
           } else {
             new SquareSm(0, 0, 0 + rot, bg)
           }
