@@ -17,7 +17,7 @@
  */
 // VSCode Shades of purple editor colors
 bgColor = [0, 25, 60]
-colors = ['#000000', '#ffffff', '#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
+colors = ['#000000', '#ffffff', ]//'#ff628c', '#FF9D00', '#fad000', '#2ca300', '#2EC4B6', '#5D37F0']
 let r
 
 /**
@@ -47,9 +47,9 @@ function draw() {
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
-  addTangram('square', 'sm', bg, 0, 0, frameCount)
+  addTangram('square', 'sm', bg, 0, 0, frameCount/6)
 
-  addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
+  // addTangram('triangle', 'md', bg, 1, 1, 45 + frameCount)
   pop()
 }
 
@@ -126,15 +126,15 @@ function addTangram (shape, size, bg, xShift = 0, yShift = 0, rot = 0) {
         case 'sm':
           r = random()
           if (r < 1 / 3) {
-            new TriangleSm(0, 0, 270 + rot, bg, .15, .15)
-            new TriangleSm(0, 0, 90 + rot, bg, .19, .19)
-          //   new TriangleSm(-.5, -.5, 0 + rot, bg)
-          //   new TriangleSm(.5, .5, 180 + rot, bg)
+            new TriangleSm(0, 0, 270 + rot, bg, .1695, .1695)
+            new TriangleSm(0, 0, 90 + rot, bg, .1695, .1695)
           // } else if (r < 2 / 3) {
-          //   new TriangleSm(.5, -.5, 90 + rot, bg)
-          //   new TriangleSm(-.5, .5, -90 + rot, bg)
+            // new TriangleSm(0, 0, 0 + rot, bg, .15, .15)
+            // new TriangleSm(0, 0, -180 + rot, bg, .19, .19)
+            // new TriangleSm(.5, -.5, 90 + rot, bg)
+            // new TriangleSm(-.5, .5, -90 + rot, bg)
           } else {
-            // new SquareSm(0, 0, 0 + rot, bg)
+            new SquareSm(0, 0, 0 + rot, bg)
           }
         break
 
